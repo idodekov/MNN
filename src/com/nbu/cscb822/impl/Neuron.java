@@ -20,6 +20,7 @@ public class Neuron implements INeuron, Serializable {
     private NeuronCollection forwardConnections = new NeuronCollection();
     private NeuronConnections inputs = new NeuronConnections();
     private INeuronStrategy strategy;
+    private double lastWeightUpdate = 0.0;
     
     public Neuron() {
     }
@@ -109,4 +110,14 @@ public class Neuron implements INeuron, Serializable {
         strategy.findNewBias(bias, delta);
         strategy.updateWeights(inputs, delta);
     }
+
+    @Override
+	public double getLastWeightUpdate() {
+		return lastWeightUpdate;
+	}
+
+    @Override
+	public void setLastWeightUpdate(double lastWeightUpdate) {
+		this.lastWeightUpdate = lastWeightUpdate;
+	}
 }

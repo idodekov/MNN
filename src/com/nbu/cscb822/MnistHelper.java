@@ -107,15 +107,16 @@ public class MnistHelper {
 		}
 	}
 	
-	public double printErrorRate(INeuralNetwork nn, MnistList testingList) {
+	public double printErrorRate(INeuralNetwork nn, MnistList list, String datasetName) {
 		if(nn == null) {
 			System.out.println("Neural Network is not initialized!");
 			return 100.0;
 		}
 		
         try {
-        	System.out.println("Starting to test the data...");
-	        Iterator<MnistImage> it = testingList.iterator();
+        	System.out.println("-----");
+        	System.out.println("Calculating average error rate on " + datasetName + " data...");
+	        Iterator<MnistImage> it = list.iterator();
 	        int errorCount = 0;
 	        int errorCount_0 = 0;
 	        int errorCount_1 = 0;
@@ -169,8 +170,8 @@ public class MnistHelper {
 	        }
 	        
 	        System.out.println("Finished testing the data.");
-	        double errorRate = (errorCount/(double)testingList.size())*100;
-	        System.out.println("Error count is [" + errorCount + "] from [" + testingList.size() + 
+	        double errorRate = (errorCount/(double)list.size())*100;
+	        System.out.println("Error count is [" + errorCount + "] from [" + list.size() + 
 	        		"]. That's [" + errorRate + "%].");
 	        System.out.println("Error count for number [0] is " + errorCount_0);
 	        System.out.println("Error count for number [1] is " + errorCount_1);
@@ -182,6 +183,7 @@ public class MnistHelper {
 	        System.out.println("Error count for number [7] is " + errorCount_7);
 	        System.out.println("Error count for number [8] is " + errorCount_8);
 	        System.out.println("Error count for number [9] is " + errorCount_9);
+	        System.out.println("-----");
 	        
 	        return errorRate;
         } catch (Exception e) {

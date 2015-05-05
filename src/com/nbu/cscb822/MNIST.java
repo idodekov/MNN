@@ -88,7 +88,9 @@ public class MNIST {
 					nn = helper.testNN(nn, testingList);
 					break;
 				case "6":
-					helper.printErrorRate(nn, testingList);
+					helper.printErrorRate(nn, trainingList, "TRAINING");
+					helper.printErrorRate(nn, validationList, "VALIDATION");
+					helper.printErrorRate(nn, testingList, "TESTING");
 					break;
 				case "7":
 					helper.printMseHistory(nn, false);

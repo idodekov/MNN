@@ -40,4 +40,8 @@ public interface INeuron extends Serializable {
     void updateDelta(double errorFactor);
     
     void updateFreeParams();
+    
+	public double getLastWeightUpdate();
+
+	public void setLastWeightUpdate(double lastWeightUpdate);
 }

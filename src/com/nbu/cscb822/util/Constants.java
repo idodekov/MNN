@@ -29,6 +29,8 @@ public class Constants {
 			OVERFITTING_CHECK_ENABLED = Boolean.parseBoolean(props.getProperty("overfitting.check.enabled"));
 			TRAINING_MODE = props.getProperty("training.mode");
 			RANDOM_SEED = props.getProperty("random.seed");
+			MOMENTUM_ENABLED = Boolean.parseBoolean(props.getProperty("momentum.enable"));
+			MOMENTUM_RATE = Double.parseDouble(props.getProperty("momentum.rate"));
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(1);
@@ -56,4 +58,7 @@ public class Constants {
     public static boolean OVERFITTING_CHECK_ENABLED;
     public static String TRAINING_MODE;
     public static String RANDOM_SEED;
+    
+    public static boolean MOMENTUM_ENABLED;
+    public static double MOMENTUM_RATE;
 }

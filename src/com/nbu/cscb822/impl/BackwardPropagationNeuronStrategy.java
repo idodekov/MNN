@@ -41,7 +41,16 @@ public class BackwardPropagationNeuronStrategy implements INeuronStrategy, Seria
     @Override
     public void updateWeights(NeuronConnections connections, double delta) {
         for(INeuron neuron: connections.keySet()) {
-            Double newWeight = connections.get(neuron) + Constants.LEARNING_RATE * neuron.getOutputValue() * delta;
+        	double weightUpdate = Constants.LEARNING_RATE * neuron.getOutputValue() * delta;
+            
+            if(Constants.MOMENTUM_ENABLED) {
+            	weightUpdate = weightUpdate + neuron.getLastWeightUpdate() * Constants.MOMENTUM_RATE;
+            }
+            
+            neuron.setLastWeightUpdate(weightUpdate);
+            
+            Double newWeight = connections.get(neuron) + weightUpdate;
+            
             connections.put(neuron, newWeight);
         }
     }

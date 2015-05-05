@@ -53,11 +53,11 @@ public class NeuralNetworkInitializer {
         for(int roundCount = 1; roundCount <= rounds; roundCount++) {
         	long timestamp = System.currentTimeMillis();
         	
-        	if("shuffle".equalsIgnoreCase(Constants.TRAINING_MODE)) {
-        		System.out.println("Shuffling training data...");
-        		Collections.shuffle(trainingQueue, new Random(System.currentTimeMillis()));
-        		System.out.println("Traing data succesfully shuffled.");
-        	}
+//        	if("shuffle".equalsIgnoreCase(Constants.TRAINING_MODE)) {
+//        		System.out.println("Shuffling training data...");
+//        		Collections.shuffle(trainingQueue, new Random(System.currentTimeMillis()));
+//        		System.out.println("Traing data succesfully shuffled.");
+//        	}
         	
             Iterator<TrainingData> it = trainingQueue.iterator();
             double mseSum = 0.0;
