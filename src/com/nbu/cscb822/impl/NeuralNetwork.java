@@ -22,7 +22,7 @@ public class NeuralNetwork implements INeuralNetwork, Serializable {
 	private MseHistory validationMseHistory = new MseHistory();
 
     @Override
-    public void trainNetwork(TrainingData t) throws NeuralNetworkException {
+    public void trainNetwork(TrainingData t, boolean updateWeights) throws NeuralNetworkException {
         if(layers.size() < 2) {
             throw new NeuralNetworkException("Not enough layers!");
         }
@@ -70,11 +70,11 @@ public class NeuralNetwork implements INeuralNetwork, Serializable {
                 }
             }
             
-            for(i = 1; i<layers.size(); i++) {
-                for(INeuron neuron : layers.get(i)) {
-                    neuron.updateFreeParams();
-                }
-            }
+	        for(i = 1; i<layers.size(); i++) {
+	            for(INeuron neuron : layers.get(i)) {
+	                neuron.updateFreeParams(updateWeights);
+	            }
+	        }
         } catch (Exception e) {
             throw new NeuralNetworkException("Error occurred while training network", e);
         }
@@ -92,6 +92,19 @@ public class NeuralNetwork implements INeuralNetwork, Serializable {
     	return sum/outputs.size();
     }
     
+    public void batchUpdate() throws NeuralNetworkException {
+    	for(int i=1; i<layers.size(); i++) {
+            for(INeuron neuron: layers.get(i)) {
+                neuron.setBiasValue(neuron.getBiasValue() + neuron.getSummedBiasUpdate());
+                
+                for(INeuron inputNeuron: neuron.getInputs().keySet()) {
+                	double oldWeight = neuron.getInputs().get(inputNeuron);
+                	neuron.getInputs().put(inputNeuron, oldWeight + neuron.getSummedInputWeightUpdates().get(inputNeuron));
+                }
+            }
+        }
+    }
+    
     @Override
     public void connectNeurons(INeuron source, INeuron destination) throws NeuralNetworkException {
         connectNeurons(source, destination, Utils.random());
@@ -106,6 +119,8 @@ public class NeuralNetwork implements INeuralNetwork, Serializable {
         //TODO
         source.getForwardConnections().add(destination);
         destination.getInputs().put(source, weight);
+        destination.getLastInputWeightUpdates().put(source, 0.0);
+        destination.getSummedInputWeightUpdates().put(source, 0.0);
     }
 
     @Override

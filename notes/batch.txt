@@ -1,0 +1,113 @@
+training.mode=batch
+momentum.enable=true
+momentum.rate=0.2
+overfitting.check.enabled=true
+learning.rate=0.5
+random.seed=1500
+
+Initially generated:
+-----
+Calculating average error rate on TRAINING data...
+Finished testing the data.
+Error count is [55303] from [60000]. That's [92.17166666666667%].
+Error count for number [0] is 5908
+Error count for number [1] is 5910
+Error count for number [2] is 5649
+Error count for number [3] is 6085
+Error count for number [4] is 5841
+Error count for number [5] is 2945
+Error count for number [6] is 5154
+Error count for number [7] is 6265
+Error count for number [8] is 5599
+Error count for number [9] is 5947
+-----
+-----
+Calculating average error rate on VALIDATION data...
+Finished testing the data.
+Error count is [4597] from [5000]. That's [91.94%].
+Error count for number [0] is 519
+Error count for number [1] is 477
+Error count for number [2] is 481
+Error count for number [3] is 509
+Error count for number [4] is 482
+Error count for number [5] is 243
+Error count for number [6] is 417
+Error count for number [7] is 516
+Error count for number [8] is 464
+Error count for number [9] is 489
+-----
+-----
+Calculating average error rate on TESTING data...
+Finished testing the data.
+Error count is [4595] from [5000]. That's [91.9%].
+Error count for number [0] is 457
+Error count for number [1] is 496
+Error count for number [2] is 504
+Error count for number [3] is 495
+Error count for number [4] is 500
+Error count for number [5] is 239
+Error count for number [6] is 393
+Error count for number [7] is 512
+Error count for number [8] is 479
+Error count for number [9] is 520
+-----
+
+
++ After 1 epoch:
+Finished adding training data.
+Finished adding validation data.
+Enter the number of epochs: 1
+
+Training is in process. Please wait.
+Training mode is set to: batch
+Training data MSE for round [1] is [0.3641465682932058].
+Validation data MSE for round [1] is [0.10000000000000904].
+Epoch [1] is done in 41.54475 minutes.
+Training done in 41.590516666666666 minutes.
+
+
+-----
+Calculating average error rate on TRAINING data...
+Finished testing the data.
+Error count is [54077] from [60000]. That's [90.12833333333333%].
+Error count for number [0] is 0
+Error count for number [1] is 6742
+Error count for number [2] is 5958
+Error count for number [3] is 6131
+Error count for number [4] is 5842
+Error count for number [5] is 5421
+Error count for number [6] is 5918
+Error count for number [7] is 6265
+Error count for number [8] is 5851
+Error count for number [9] is 5949
+-----
+-----
+Calculating average error rate on VALIDATION data...
+Finished testing the data.
+Error count is [4480] from [5000]. That's [89.60000000000001%].
+Error count for number [0] is 0
+Error count for number [1] is 564
+Error count for number [2] is 502
+Error count for number [3] is 510
+Error count for number [4] is 482
+Error count for number [5] is 436
+Error count for number [6] is 496
+Error count for number [7] is 516
+Error count for number [8] is 485
+Error count for number [9] is 489
+-----
+-----
+Calculating average error rate on TESTING data...
+Finished testing the data.
+Error count is [4540] from [5000]. That's [90.8%].
+Error count for number [0] is 0
+Error count for number [1] is 571
+Error count for number [2] is 530
+Error count for number [3] is 500
+Error count for number [4] is 500
+Error count for number [5] is 456
+Error count for number [6] is 462
+Error count for number [7] is 512
+Error count for number [8] is 489
+Error count for number [9] is 520
+-----

@@ -63,8 +63,16 @@ public class NeuralNetworkInitializer {
             double mseSum = 0.0;
             while(it.hasNext()) {
                 TrainingData next = it.next();
-                network.trainNetwork(next);
+                if("batch".equalsIgnoreCase(Constants.TRAINING_MODE)) {
+                	network.trainNetwork(next, false);
+                } else {
+                	network.trainNetwork(next, true);
+                }
                 mseSum += network.calculateMse(next);
+            }
+            
+            if("batch".equalsIgnoreCase(Constants.TRAINING_MODE)) {
+            	network.batchUpdate();
             }
             
             double mseAverage = mseSum / trainingQueue.size();

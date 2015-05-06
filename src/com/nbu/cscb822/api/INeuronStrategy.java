@@ -3,6 +3,7 @@ package com.nbu.cscb822.api;
 import java.io.Serializable;
 
 import com.nbu.cscb822.impl.NeuronConnections;
+import com.nbu.cscb822.util.WeightUpdates;
 
 /**
  * 
@@ -16,7 +17,7 @@ public interface INeuronStrategy extends Serializable {
 
     double findNetValue(NeuronConnections inputs, double bias);
 
-    double findNewBias(double bias, double delta);
+    double findNewBias(double bias, double lastBiasUpdate, double summedBiasUpdate, double delta, boolean updateWeights);
 
-    void updateWeights(NeuronConnections connections, double delta);
+    void updateWeights(NeuronConnections connections, WeightUpdates lastInputWeightUpdates, WeightUpdates summedInputWeightUpdates, double delta, boolean updateWeights);
 }

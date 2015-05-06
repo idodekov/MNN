@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.nbu.cscb822.api.INeuron;
 import com.nbu.cscb822.api.INeuronStrategy;
 import com.nbu.cscb822.util.Constants;
+import com.nbu.cscb822.util.WeightUpdates;
 
 /**
  * 
@@ -34,24 +35,40 @@ public class BackwardPropagationNeuronStrategy implements INeuronStrategy, Seria
     }
 
     @Override
-    public double findNewBias(double bias, double delta) {
-        return bias + Constants.LEARNING_RATE * 1 * delta;
+    public double findNewBias(double bias, double lastBiasUpdate, double summedBiasUpdate, double delta, boolean updateWeights) {
+    	double biasUpdate = Constants.LEARNING_RATE * 1 * delta;
+    	
+    	if(Constants.MOMENTUM_ENABLED) {
+    		biasUpdate = biasUpdate + lastBiasUpdate * Constants.MOMENTUM_RATE;
+        }
+    	
+    	lastBiasUpdate = biasUpdate;
+    	summedBiasUpdate = summedBiasUpdate + biasUpdate;
+    	
+    	if(updateWeights) {
+    		bias = bias + biasUpdate;
+    	}
+        return bias;
     }
 
     @Override
-    public void updateWeights(NeuronConnections connections, double delta) {
+    public void updateWeights(NeuronConnections connections, WeightUpdates lastInputWeightUpdates, WeightUpdates summedInputWeightUpdates, double delta, boolean updateWeights) {
         for(INeuron neuron: connections.keySet()) {
         	double weightUpdate = Constants.LEARNING_RATE * neuron.getOutputValue() * delta;
             
             if(Constants.MOMENTUM_ENABLED) {
-            	weightUpdate = weightUpdate + neuron.getLastWeightUpdate() * Constants.MOMENTUM_RATE;
+            	weightUpdate = weightUpdate + lastInputWeightUpdates.get(neuron) * Constants.MOMENTUM_RATE;
             }
             
-            neuron.setLastWeightUpdate(weightUpdate);
+            lastInputWeightUpdates.put(neuron, weightUpdate);
+            double weightSum = summedInputWeightUpdates.get(neuron) + weightUpdate;
+            summedInputWeightUpdates.put(neuron, weightSum);
             
             Double newWeight = connections.get(neuron) + weightUpdate;
             
-            connections.put(neuron, newWeight);
+            if(updateWeights) {
+            	connections.put(neuron, newWeight);
+            }
         }
     }
 

@@ -15,7 +15,9 @@ import com.nbu.cscb822.util.NeuronLayerCollection;
  *
  */
 public interface INeuralNetwork extends Serializable {
-    void trainNetwork(TrainingData t) throws NeuralNetworkException;
+    void trainNetwork(TrainingData t, boolean updateWeights) throws NeuralNetworkException;
+    
+    void batchUpdate() throws NeuralNetworkException;
     
     void connectNeurons(INeuron source, INeuron destination) throws NeuralNetworkException;
     

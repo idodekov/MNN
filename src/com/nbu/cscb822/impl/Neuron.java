@@ -6,6 +6,7 @@ import com.nbu.cscb822.api.INeuron;
 import com.nbu.cscb822.api.INeuronStrategy;
 import com.nbu.cscb822.util.NeuronCollection;
 import com.nbu.cscb822.util.Utils;
+import com.nbu.cscb822.util.WeightUpdates;
 
 /**
  * 
@@ -20,9 +21,12 @@ public class Neuron implements INeuron, Serializable {
     private NeuronCollection forwardConnections = new NeuronCollection();
     private NeuronConnections inputs = new NeuronConnections();
     private INeuronStrategy strategy;
-    private double lastWeightUpdate = 0.0;
+    private WeightUpdates lastInputWeightUpdates = new WeightUpdates(); // for momentum
+    private WeightUpdates summedInputWeightUpdates = new WeightUpdates(); // for batch training
+    private double lastBiasUpdate = 0.0; // for momentum
+    private double summedBiasUpdate = 0.0; // for batch training
     
-    public Neuron() {
+	public Neuron() {
     }
     
     public Neuron(INeuronStrategy strategy) {
@@ -82,6 +86,46 @@ public class Neuron implements INeuron, Serializable {
     public void setInputs(NeuronConnections inputs) {
         this.inputs = inputs;
     }
+    
+    @Override
+    public WeightUpdates getLastInputWeightUpdates() {
+		return lastInputWeightUpdates;
+	}
+
+    @Override
+	public void setLastInputWeightUpdates(WeightUpdates lastInputWeightUpdates) {
+		this.lastInputWeightUpdates = lastInputWeightUpdates;
+	}
+
+    @Override
+	public WeightUpdates getSummedInputWeightUpdates() {
+		return summedInputWeightUpdates;
+	}
+
+    @Override
+	public void setSummedInputWeightUpdates(WeightUpdates summedInputWeightUpdates) {
+		this.summedInputWeightUpdates = summedInputWeightUpdates;
+	}
+    
+    @Override
+    public double getLastBiasUpdate() {
+		return lastBiasUpdate;
+	}
+
+    @Override
+	public void setLastBiasUpdate(double lastBiasUpdate) {
+		this.lastBiasUpdate = lastBiasUpdate;
+	}
+
+    @Override
+	public double getSummedBiasUpdate() {
+		return summedBiasUpdate;
+	}
+
+    @Override
+	public void setSummedBiasUpdate(double summedBiasUpdate) {
+		this.summedBiasUpdate = summedBiasUpdate;
+	}
 
     @Override
     public INeuronStrategy getStrategy() {
@@ -106,18 +150,9 @@ public class Neuron implements INeuron, Serializable {
     }
 
     @Override
-    public void updateFreeParams() {
-        strategy.findNewBias(bias, delta);
-        strategy.updateWeights(inputs, delta);
+    public void updateFreeParams(boolean updateWeights) {
+        bias = strategy.findNewBias(bias, lastBiasUpdate, summedBiasUpdate, delta, updateWeights);
+        strategy.updateWeights(inputs, lastInputWeightUpdates, summedInputWeightUpdates, delta, updateWeights);
     }
 
-    @Override
-	public double getLastWeightUpdate() {
-		return lastWeightUpdate;
-	}
-
-    @Override
-	public void setLastWeightUpdate(double lastWeightUpdate) {
-		this.lastWeightUpdate = lastWeightUpdate;
-	}
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.nbu.cscb822.impl.NeuronConnections;
 import com.nbu.cscb822.util.NeuronCollection;
+import com.nbu.cscb822.util.WeightUpdates;
 
 /**
  * 
@@ -39,9 +40,21 @@ public interface INeuron extends Serializable {
     
     void updateDelta(double errorFactor);
     
-    void updateFreeParams();
+    void updateFreeParams(boolean updateWeights);
     
-	public double getLastWeightUpdate();
+    WeightUpdates getLastInputWeightUpdates();
 
-	public void setLastWeightUpdate(double lastWeightUpdate);
+	void setLastInputWeightUpdates(WeightUpdates lastInputWeightUpdates);
+
+	WeightUpdates getSummedInputWeightUpdates();
+
+	void setSummedInputWeightUpdates(WeightUpdates summedInputWeightUpdates);
+	
+	double getLastBiasUpdate();
+
+	void setLastBiasUpdate(double lastBiasUpdate);
+
+	double getSummedBiasUpdate();
+
+	void setSummedBiasUpdate(double summedBiasUpdate);
 }
