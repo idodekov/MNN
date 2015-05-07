@@ -96,7 +96,7 @@ public class NeuralNetwork implements INeuralNetwork, Serializable {
     public void batchUpdate() throws NeuralNetworkException {
     	for(int i=1; i<layers.size(); i++) {
             for(INeuron neuron: layers.get(i)) {
-                neuron.setBiasValue(neuron.getBiasValue() + neuron.getSummedBiasUpdate());
+                neuron.setBiasValue(neuron.getBiasValue() + neuron.getSummedBiasUpdate().getUpdateValue());
                 
                 for(INeuron inputNeuron: neuron.getInputs().keySet()) {
                 	double oldWeight = neuron.getInputs().get(inputNeuron);

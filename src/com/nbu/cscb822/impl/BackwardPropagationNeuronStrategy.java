@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.nbu.cscb822.api.INeuron;
 import com.nbu.cscb822.api.INeuronStrategy;
+import com.nbu.cscb822.util.BiasUpdate;
 import com.nbu.cscb822.util.Constants;
 import com.nbu.cscb822.util.WeightUpdates;
 
@@ -35,15 +36,15 @@ public class BackwardPropagationNeuronStrategy implements INeuronStrategy, Seria
     }
 
     @Override
-    public double findNewBias(double bias, double lastBiasUpdate, double summedBiasUpdate, double delta, boolean updateWeights) {
+    public double findNewBias(double bias, BiasUpdate lastBiasUpdate, BiasUpdate summedBiasUpdate, double delta, boolean updateWeights) {
     	double biasUpdate = Constants.LEARNING_RATE * 1 * delta;
     	
     	if(Constants.MOMENTUM_ENABLED) {
-    		biasUpdate = biasUpdate + lastBiasUpdate * Constants.MOMENTUM_RATE;
+    		biasUpdate = biasUpdate + lastBiasUpdate.getUpdateValue() * Constants.MOMENTUM_RATE;
         }
     	
-    	lastBiasUpdate = biasUpdate;
-    	summedBiasUpdate = summedBiasUpdate + biasUpdate;
+    	lastBiasUpdate.setUpdateValue(biasUpdate);
+    	summedBiasUpdate.setUpdateValue(summedBiasUpdate.getUpdateValue() + biasUpdate);
     	
     	if(updateWeights) {
     		bias = bias + biasUpdate;

@@ -3,6 +3,7 @@ package com.nbu.cscb822.api;
 import java.io.Serializable;
 
 import com.nbu.cscb822.impl.NeuronConnections;
+import com.nbu.cscb822.util.BiasUpdate;
 import com.nbu.cscb822.util.NeuronCollection;
 import com.nbu.cscb822.util.WeightUpdates;
 
@@ -50,13 +51,13 @@ public interface INeuron extends Serializable {
 
 	void setSummedInputWeightUpdates(WeightUpdates summedInputWeightUpdates);
 	
-	double getLastBiasUpdate();
+	BiasUpdate getLastBiasUpdate();
 
-	void setLastBiasUpdate(double lastBiasUpdate);
+	void setLastBiasUpdate(BiasUpdate lastBiasUpdate);
 
-	double getSummedBiasUpdate();
+	BiasUpdate getSummedBiasUpdate();
 
-	void setSummedBiasUpdate(double summedBiasUpdate);
+	void setSummedBiasUpdate(BiasUpdate summedBiasUpdate);
 	
 	void resetBatchParameters();
 }

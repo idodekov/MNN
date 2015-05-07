@@ -61,17 +61,19 @@ public class NeuralNetworkInitializer {
         	
             Iterator<TrainingData> it = trainingQueue.iterator();
             double mseSum = 0.0;
-            while(it.hasNext()) {
-                TrainingData next = it.next();
-                if("batch".equalsIgnoreCase(Constants.TRAINING_MODE)) {
-                	network.trainNetwork(next, false);
-                } else {
-                	network.trainNetwork(next, true);
-                }
-            }
             
             if("batch".equalsIgnoreCase(Constants.TRAINING_MODE)) {
+            	while(it.hasNext()) {
+                    TrainingData next = it.next();
+                    network.trainNetwork(next, false);
+                }
+            	
             	network.batchUpdate();
+            } else {
+            	while(it.hasNext()) {
+                    TrainingData next = it.next();
+                    network.trainNetwork(next, true);
+                }
             }
             
             it = trainingQueue.iterator();

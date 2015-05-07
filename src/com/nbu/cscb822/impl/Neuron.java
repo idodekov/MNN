@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.nbu.cscb822.api.INeuron;
 import com.nbu.cscb822.api.INeuronStrategy;
+import com.nbu.cscb822.util.BiasUpdate;
 import com.nbu.cscb822.util.NeuronCollection;
 import com.nbu.cscb822.util.Utils;
 import com.nbu.cscb822.util.WeightUpdates;
@@ -23,8 +24,8 @@ public class Neuron implements INeuron, Serializable {
     private INeuronStrategy strategy;
     private WeightUpdates lastInputWeightUpdates = new WeightUpdates(); // for momentum
     private WeightUpdates summedInputWeightUpdates = new WeightUpdates(); // for batch training
-    private double lastBiasUpdate = 0.0; // for momentum
-    private double summedBiasUpdate = 0.0; // for batch training
+    private BiasUpdate lastBiasUpdate = new BiasUpdate(); // for momentum
+    private BiasUpdate summedBiasUpdate = new BiasUpdate(); // for batch training
     
 	public Neuron() {
     }
@@ -108,22 +109,22 @@ public class Neuron implements INeuron, Serializable {
 	}
     
     @Override
-    public double getLastBiasUpdate() {
+    public BiasUpdate getLastBiasUpdate() {
 		return lastBiasUpdate;
 	}
 
     @Override
-	public void setLastBiasUpdate(double lastBiasUpdate) {
+	public void setLastBiasUpdate(BiasUpdate lastBiasUpdate) {
 		this.lastBiasUpdate = lastBiasUpdate;
 	}
 
     @Override
-	public double getSummedBiasUpdate() {
+	public BiasUpdate getSummedBiasUpdate() {
 		return summedBiasUpdate;
 	}
 
     @Override
-	public void setSummedBiasUpdate(double summedBiasUpdate) {
+	public void setSummedBiasUpdate(BiasUpdate summedBiasUpdate) {
 		this.summedBiasUpdate = summedBiasUpdate;
 	}
 
@@ -156,7 +157,7 @@ public class Neuron implements INeuron, Serializable {
     }
     
     public void resetBatchParameters() {
-    	summedBiasUpdate = 0.0;
+    	summedBiasUpdate.setUpdateValue(0.0);
     	for(INeuron neuron: summedInputWeightUpdates.keySet()) {
     		summedInputWeightUpdates.put(neuron, 0.0);
     	}
