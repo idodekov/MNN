@@ -86,16 +86,16 @@ public class NeuralNetworkInitializer {
             network.getTrainingMseHistory().add(new Mse(mseAverage));
             System.out.println("Training data MSE for round [" + roundCount + "] is [" + mseAverage + "].");
             
-            int tSize = network.getTrainingMseHistory().size();
-            if(tSize >= 2) {
-	            Double diff = network.getTrainingMseHistory().get(tSize - 2).getMseValue() - network.getTrainingMseHistory().get(tSize - 1).getMseValue();
-	            if(diff < 0) {
-	            	System.out.println("Average MSE of training data is bigger than in previous iteration. The network is overfitting - training will stop now.");
-	            	return;
-	            }
-            }
-            
             if(Constants.OVERFITTING_CHECK_ENABLED) {
+            	int tSize = network.getTrainingMseHistory().size();
+                if(tSize >= 2) {
+    	            Double diff = network.getTrainingMseHistory().get(tSize - 2).getMseValue() - network.getTrainingMseHistory().get(tSize - 1).getMseValue();
+    	            if(diff < 0) {
+    	            	System.out.println("Average MSE of training data is bigger than in previous iteration. The network is overfitting - training will stop now.");
+    	            	return;
+    	            }
+                }
+                
             	Iterator<TrainingData> vit = validationQueue.iterator();
                 double validationMseSum = 0.0;
                 while(vit.hasNext()) {

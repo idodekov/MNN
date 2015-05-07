@@ -1,9 +1,12 @@
 training.mode=batch
 momentum.enable=true
-momentum.rate=0.2
+momentum.rate=0.5
 overfitting.check.enabled=true
 learning.rate=0.5
 random.seed=1500
+Training Data Images: 60000
+Testing Data Images: 5000
+Validation Data Images: 5000
 
 Initially generated:
 -----
