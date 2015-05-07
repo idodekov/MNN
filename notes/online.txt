@@ -111,3 +111,64 @@ Error count for number [7] is 351
 Error count for number [8] is 129
 Error count for number [9] is 320
 -----
+
+
+
++ After 2 epochs:
+
+Finished adding training data.
+Finished adding validation data.
+Enter the number of epochs: 1
+
+Training is in process. Please wait.
+Training mode is set to: online
+Training data MSE for round [1] is [0.05387129600441176].
+Validation data MSE for round [1] is [0.04841927969152609].
+Epoch [1] is done in 46.11386666666667 minutes.
+Training done in 46.23345 minutes.
+
+-----
+Calculating average error rate on TRAINING data...
+Finished testing the data.
+Error count is [25507] from [60000]. That's [42.51166666666666%].
+Error count for number [0] is 5870
+Error count for number [1] is 145
+Error count for number [2] is 416
+Error count for number [3] is 6127
+Error count for number [4] is 652
+Error count for number [5] is 887
+Error count for number [6] is 5354
+Error count for number [7] is 5534
+Error count for number [8] is 274
+Error count for number [9] is 248
+-----
+-----
+Calculating average error rate on VALIDATION data...
+Finished testing the data.
+Error count is [2085] from [5000]. That's [41.699999999999996%].
+Error count for number [0] is 510
+Error count for number [1] is 10
+Error count for number [2] is 26
+Error count for number [3] is 510
+Error count for number [4] is 38
+Error count for number [5] is 68
+Error count for number [6] is 446
+Error count for number [7] is 453
+Error count for number [8] is 7
+Error count for number [9] is 17
+-----
+-----
+Calculating average error rate on TESTING data...
+Finished testing the data.
+Error count is [2091] from [5000]. That's [41.82%].
+Error count for number [0] is 451
+Error count for number [1] is 7
+Error count for number [2] is 50
+Error count for number [3] is 500
+Error count for number [4] is 71
+Error count for number [5] is 86
+Error count for number [6] is 410
+Error count for number [7] is 452
+Error count for number [8] is 33
+Error count for number [9] is 31
+-----

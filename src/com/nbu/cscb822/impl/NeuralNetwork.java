@@ -92,6 +92,7 @@ public class NeuralNetwork implements INeuralNetwork, Serializable {
     	return sum/outputs.size();
     }
     
+    @Override
     public void batchUpdate() throws NeuralNetworkException {
     	for(int i=1; i<layers.size(); i++) {
             for(INeuron neuron: layers.get(i)) {
@@ -101,6 +102,17 @@ public class NeuralNetwork implements INeuralNetwork, Serializable {
                 	double oldWeight = neuron.getInputs().get(inputNeuron);
                 	neuron.getInputs().put(inputNeuron, oldWeight + neuron.getSummedInputWeightUpdates().get(inputNeuron));
                 }
+                
+                neuron.resetBatchParameters();
+            }
+        }
+    }
+    
+    @Override
+    public void resetBatchParameters() {
+    	for(int i=1; i<layers.size(); i++) {
+            for(INeuron neuron: layers.get(i)) {
+                neuron.resetBatchParameters();
             }
         }
     }

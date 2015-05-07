@@ -50,4 +50,6 @@ public interface INeuralNetwork extends Serializable {
 	MseHistory getTrainingMseHistory();
 
 	MseHistory getValidationMseHistory();
+	
+	void resetBatchParameters();
 }

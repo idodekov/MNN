@@ -1,9 +1,7 @@
 package com.nbu.cscb822.util;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.Random;
 
 import com.nbu.cscb822.api.INeuralNetwork;
 import com.nbu.cscb822.exception.NeuralNetworkException;
@@ -50,6 +48,8 @@ public class NeuralNetworkInitializer {
     
     public void train(int rounds) throws NeuralNetworkException {
     	System.out.println("Training mode is set to: " + Constants.TRAINING_MODE);
+    	network.resetBatchParameters();
+    	
         for(int roundCount = 1; roundCount <= rounds; roundCount++) {
         	long timestamp = System.currentTimeMillis();
         	
@@ -68,11 +68,16 @@ public class NeuralNetworkInitializer {
                 } else {
                 	network.trainNetwork(next, true);
                 }
-                mseSum += network.calculateMse(next);
             }
             
             if("batch".equalsIgnoreCase(Constants.TRAINING_MODE)) {
             	network.batchUpdate();
+            }
+            
+            it = trainingQueue.iterator();
+            while(it.hasNext()) {
+                TrainingData next = it.next();
+                mseSum += network.calculateMse(next);
             }
             
             double mseAverage = mseSum / trainingQueue.size();

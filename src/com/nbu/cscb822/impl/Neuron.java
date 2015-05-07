@@ -151,8 +151,15 @@ public class Neuron implements INeuron, Serializable {
 
     @Override
     public void updateFreeParams(boolean updateWeights) {
-        bias = strategy.findNewBias(bias, lastBiasUpdate, summedBiasUpdate, delta, updateWeights);
+    	bias = strategy.findNewBias(bias, lastBiasUpdate, summedBiasUpdate, delta, updateWeights);
         strategy.updateWeights(inputs, lastInputWeightUpdates, summedInputWeightUpdates, delta, updateWeights);
+    }
+    
+    public void resetBatchParameters() {
+    	summedBiasUpdate = 0.0;
+    	for(INeuron neuron: summedInputWeightUpdates.keySet()) {
+    		summedInputWeightUpdates.put(neuron, 0.0);
+    	}
     }
 
 }

@@ -57,4 +57,6 @@ public interface INeuron extends Serializable {
 	double getSummedBiasUpdate();
 
 	void setSummedBiasUpdate(double summedBiasUpdate);
+	
+	void resetBatchParameters();
 }

@@ -60,7 +60,7 @@ Enter the number of epochs: 1
 
 Training is in process. Please wait.
 Training mode is set to: batch
-Training data MSE for round [1] is [0.3641465682932058].
+Training data MSE for round [1] is [0.1000000000000716].
 Validation data MSE for round [1] is [0.10000000000000904].
 Epoch [1] is done in 41.54475 minutes.
 Training done in 41.590516666666666 minutes.
@@ -111,3 +111,8 @@ Error count for number [7] is 512
 Error count for number [8] is 489
 Error count for number [9] is 520
 -----
+
+
++ After 2 epochs:
+
+
